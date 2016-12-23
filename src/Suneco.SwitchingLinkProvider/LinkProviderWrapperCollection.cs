@@ -1,4 +1,4 @@
-﻿namespace Suneco.SwitchingLinkManager
+﻿namespace Suneco.SwitchingLinkProvider
 {
     using System;
     using System.Collections.Specialized;
@@ -6,12 +6,14 @@
 
     using Sitecore.Links;
 
+    /// <summary>
+    /// The link provider wrapper collection
+    /// </summary>
+    /// <seealso cref="Suneco.SwitchingLinkProvider.LinkProviderWrapperBaseCollection{Sitecore.Links.LinkProvider, Suneco.SwitchingLinkProvider.LinkProviderWrapper}" />
     public class LinkProviderWrapperCollection : LinkProviderWrapperBaseCollection<LinkProvider, LinkProviderWrapper>
     {
-        #region Constructors
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="LinkProviderWrapperCollection"/> class.
+        /// Initializes a new instance of the <see cref="LinkProviderWrapperCollection" /> class.
         /// </summary>
         /// <param name="config">The config.</param>
         /// <param name="owner">The owner.</param>
@@ -20,7 +22,5 @@
             : base(config, owner, getProvider)
         {
         }
-
-        #endregion Constructors
     }
 }

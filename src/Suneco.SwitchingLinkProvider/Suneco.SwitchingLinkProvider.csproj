@@ -7,11 +7,13 @@
     <ProjectGuid>{8335C37B-3AC0-4343-83CC-A0EFD3C17EFC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Suneco.SwitchingLinkManager</RootNamespace>
-    <AssemblyName>Suneco.SwitchingLinkManager</AssemblyName>
+    <RootNamespace>Suneco.SwitchingLinkProvider</RootNamespace>
+    <AssemblyName>Suneco.SwitchingLinkProvider</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\..\build\SunecoRuleset.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,10 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\ILogger.cs" />
-    <Compile Include="Business\SitecoreLogger.cs" />
-    <Compile Include="Business\ISitecoreService.cs" />
-    <Compile Include="Business\SitecoreService.cs" />
+    <Compile Include="Services\Interfaces\ILoggingService.cs" />
+    <Compile Include="Services\SitecoreLogging.cs" />
+    <Compile Include="Services\Interfaces\ISitecoreService.cs" />
+    <Compile Include="Services\SitecoreService.cs" />
+    <Compile Include="Models\Settings\SwitchingLinkProviderSettings.cs" />
+    <Compile Include="Models\Settings\SettingBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LinkProviderBaseWrapper.cs" />
     <Compile Include="LinkProviderWrapper.cs" />
@@ -65,6 +69,12 @@
     <None Include="App_Config\Include\Suneco\LinkManager.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

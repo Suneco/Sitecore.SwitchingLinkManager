@@ -1,14 +1,13 @@
-﻿using Sitecore.Diagnostics;
-using Sitecore.Xml;
-
-namespace Suneco.SwitchingLinkManager
+﻿namespace Suneco.SwitchingLinkProvider
 {
     using System;
     using System.Configuration.Provider;
     using System.Xml;
+    using Sitecore.Diagnostics;
+    using Sitecore.Xml;
 
     /// <summary>
-    /// 
+    /// The linkpr
     /// </summary>
     /// <typeparam name="TProvider">The type of the provider.</typeparam>
     /// <typeparam name="TWrapper">The type of the wrapper.</typeparam>
@@ -16,17 +15,11 @@ namespace Suneco.SwitchingLinkManager
         where TProvider : ProviderBase
         where TWrapper : LinkProviderBaseWrapper<TProvider, TWrapper>, new()
     {
-        #region Fields
-
-        private Func<string, TProvider> _getProvider;
-        private LinkProviderWrapperBaseCollection<TProvider, TWrapper> _owner;
-        private TProvider _provider;
-        private string _providerName;
-        private string _sitename;
-
-        #endregion Fields
-
-        #region Properties
+        private Func<string, TProvider> getProvider;
+        private LinkProviderWrapperBaseCollection<TProvider, TWrapper> owner;
+        private TProvider provider;
+        private string providerName;
+        private string sitename;
 
         /// <summary>
         /// Gets the provider.
@@ -36,14 +29,13 @@ namespace Suneco.SwitchingLinkManager
         {
             get
             {
-                if (_provider == null)
+                if (this.provider == null)
                 {
-                    
-                    _provider = _getProvider(_providerName);
-                    // TODO: must be unit tested.
-                    Log.Warn($"Non-existing provider referenced by the 'providerName' attribute in the domain/provider mapping of the {_owner.OwnerTypeName} '{_owner.Owner.Name}'. Referenced provider: {_providerName} ",this);
+                    this.provider = this.getProvider(this.providerName);
+                    Log.Warn($"Non-existing provider referenced by the 'providerName' attribute in the domain/provider mapping of the {this.owner.OwnerTypeName} '{this.owner.Owner.Name}'. Referenced provider: {this.providerName} ", this);
                 }
-                return _provider;
+
+                return this.provider;
             }
         }
 
@@ -53,11 +45,7 @@ namespace Suneco.SwitchingLinkManager
         /// <value>
         /// The sitename.
         /// </value>
-        public virtual string Sitename => _sitename;
-
-        #endregion Properties
-
-        #region Methods
+        public virtual string Sitename => this.sitename;
 
         /// <summary>
         /// Initializes the specified config node.
@@ -69,15 +57,14 @@ namespace Suneco.SwitchingLinkManager
         {
             Assert.ArgumentNotNull(owner, "owner");
 
-            _owner = owner;
-            _getProvider = getProvider;
+            this.owner = owner;
+            this.getProvider = getProvider;
 
-            _providerName = XmlUtil.GetAttribute("providerName", configNode);
-            // todo: Onderstaande melding nog aanpassen.
-            Assert.IsNotNullOrEmpty(_providerName, $"The 'providerName' attribute is empty or missing from one of the provider nodes in the domain/provider mapping of the {_owner.OwnerTypeName} '{_owner.Owner.Name}'");
-            _sitename = XmlUtil.GetAttribute("sitename", configNode);
+            this.providerName = XmlUtil.GetAttribute("providerName", configNode);
+
+            // TODO: Onderstaande melding nog aanpassen.
+            Assert.IsNotNullOrEmpty(this.providerName, $"The 'providerName' attribute is empty or missing from one of the provider nodes in the domain/provider mapping of the {this.owner.OwnerTypeName} '{this.owner.Owner.Name}'");
+            this.sitename = XmlUtil.GetAttribute("sitename", configNode);
         }
-
-        #endregion Methods
     }
 }

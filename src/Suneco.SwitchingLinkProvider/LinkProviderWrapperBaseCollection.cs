@@ -1,11 +1,10 @@
-﻿namespace Suneco.SwitchingLinkManager
-{    
+﻿namespace Suneco.SwitchingLinkProvider
+{
     using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Configuration.Provider;
     using System.Xml;
-
     using Sitecore.Collections;
     using Sitecore.Configuration;
     using Sitecore.Diagnostics;
@@ -15,135 +14,124 @@
         where TProvider : ProviderBase
         where TWrapper : LinkProviderBaseWrapper<TProvider, TWrapper>, new()
     {
-        #region Fields
-
-        private readonly ProviderBase _owner;
-        private readonly string _ownerTypeName;
-        private readonly SafeDictionary<string, TWrapper> _siteMap = new SafeDictionary<string, TWrapper>();
-
-        private TWrapper _defaultWrapper;
-
-        #endregion Fields
-
-        #region Constructors
+        private readonly ProviderBase owner;
+        private readonly string ownerTypeName;
+        private readonly SafeDictionary<string, TWrapper> siteMap = new SafeDictionary<string, TWrapper>();
+        private TWrapper defaultWrapper;
 
         /// <summary>
-        ///  Initializes a new instance of the <see cref="T:Sitecore.Security.AspNetSecurityProviderWrapperList`2" /> class.
+        /// Initializes a new instance of the <see cref="LinkProviderWrapperBaseCollection{TProvider, TWrapper}"/> class.
         /// </summary>
-        /// <param name="config">The config.</param>
+        /// <param name="config">The configuration.</param>
         /// <param name="owner">The owner.</param>
         /// <param name="getProvider">The get provider.</param>
-        public LinkProviderWrapperBaseCollection(NameValueCollection config, ProviderBase owner,
-            Func<string, TProvider> getProvider)
+        public LinkProviderWrapperBaseCollection(NameValueCollection config, ProviderBase owner, Func<string, TProvider> getProvider)
         {
             Assert.ArgumentNotNull(config, "config");
             Assert.ArgumentNotNull(owner, "owner");
             Assert.ArgumentNotNull(getProvider, "getProvider");
 
-            _owner = owner;
-            _ownerTypeName = _owner.GetType().FullName;
-            Initialize(config, getProvider);
+            this.owner = owner;
+            this.ownerTypeName = this.owner.GetType().FullName;
+            this.Initialize(config, getProvider);
         }
 
-        #endregion Constructors
-
-        #region Properties
-
         /// <summary>
-        ///     Gets the default wrapper.
+        /// Gets the default wrapper.
         /// </summary>
         /// <value>The default wrapper.</value>
-        public virtual TWrapper DefaultWrapper => _defaultWrapper;
+        public virtual TWrapper DefaultWrapper => this.defaultWrapper;
 
         /// <summary>
-        ///     Gets the owner.
+        /// Gets the owner.
         /// </summary>
         /// <value>The owner.</value>
-        public virtual ProviderBase Owner => _owner;
+        public virtual ProviderBase Owner => this.owner;
 
         /// <summary>
-        ///     Gets the name of the owner type.
+        /// Gets the name of the owner type.
         /// </summary>
         /// <value>The name of the owner type.</value>
-        public virtual string OwnerTypeName => _ownerTypeName;
+        public virtual string OwnerTypeName => this.ownerTypeName;
 
         /// <summary>
-        ///     Gets the map of domain/wrappers.
+        /// Gets the map of domain/wrappers.
         /// </summary>
         /// <value>The map.</value>
-        public virtual SafeDictionary<string, TWrapper> SiteMap => _siteMap;
-
-        #endregion Properties
-
-        #region Methods
+        public virtual SafeDictionary<string, TWrapper> SiteMap => this.siteMap;
 
         /// <summary>
-        ///     Gets a provider wrapper for a specific Sitename.
+        /// Gets a provider wrapper for a specific Sitename.
         /// </summary>
         /// <param name="sitename">Name of the user.</param>
-        /// <returns></returns>
+        /// <returns>The wrapper</returns>
         public virtual TWrapper GetWrapper(string sitename)
         {
-            if (string.IsNullOrEmpty(sitename)) return DefaultWrapper;
+            if (string.IsNullOrEmpty(sitename))
+            {
+                return this.DefaultWrapper;
+            }
 
-            var item = SiteMap[sitename];
-            return item ?? DefaultWrapper;
+            var item = this.SiteMap[sitename];
+            return item ?? this.DefaultWrapper;
         }
 
         /// <summary>
-        ///     Builds the domain/wrapper map.
+        /// Builds the domain/wrapper map.
         /// </summary>
         private void BuildSiteMap()
         {
-            foreach (var tWrapper in this)
+            foreach (var wrapper in this)
             {
-                Assert.IsFalse(_siteMap.ContainsKey(tWrapper.Sitename),
-                               $"Duplicate sitename name found in the linkmanager/provider mapping of the {_ownerTypeName} '{_owner.Name}'. sitename: {tWrapper.Sitename}");
-                _siteMap.Add(tWrapper.Sitename, tWrapper);
+                Assert.IsFalse(
+                    this.siteMap.ContainsKey(wrapper.Sitename),
+                    $"Duplicate sitename name found in the link provider mapping of the {this.ownerTypeName} '{this.owner.Name}'. sitename: {wrapper.Sitename}");
+
+                this.siteMap.Add(wrapper.Sitename, wrapper);
             }
         }
 
         /// <summary>
-        ///     Gets the provider nodes from config.
+        /// Gets the provider nodes from config.
         /// </summary>
         /// <param name="config">The config.</param>
-        /// <returns></returns>
+        /// <returns>The provider nodes from the config</returns>
         private List<XmlNode> GetProviderNodesFromConfig(NameValueCollection config)
         {
             string item = config["mappings"];
-            Assert.IsNotNullOrEmpty(item,$"The configuration for {_ownerTypeName} must have a non-empty 'mappings' attribute pointing to the domain/provider mappings. Provider name: {_owner.Name}");
+
+            Assert.IsNotNullOrEmpty(item, $"The configuration for {this.ownerTypeName} must have a non-empty 'mappings' attribute pointing to the domain/provider mappings. Provider name: {this.owner.Name}");
 
             var configNode = Factory.GetConfigNode(item);
-            Assert.IsNotNull(configNode,
-                             $"Could not find the configuration node pointed to by the 'mappings' attribute of the {_ownerTypeName} configuration. Provider: {_owner.Name}, mappings path: {item}");
+            Assert.IsNotNull(configNode, $"Could not find the configuration node pointed to by the 'mappings' attribute of the {this.ownerTypeName} configuration. Provider: {this.owner.Name}, mappings path: {item}");
+
             var childNodes = XmlUtil.GetChildNodes("provider", configNode);
 
             var flag = childNodes != null && childNodes.Count > 0;
-            Assert.IsTrue(flag,
-                          $"Could not find any 'provider' nodes below the configuration node pointed to by the 'mappings' attribute of the {_ownerTypeName} configuration. Provider: { _owner.Name}, mappings path: {item}");
+            Assert.IsTrue(flag, $"Could not find any 'provider' nodes below the configuration node pointed to by the 'mappings' attribute of the {this.ownerTypeName} configuration. Provider: {this.owner.Name}, mappings path: {item}");
+
             return childNodes;
         }
 
         /// <summary>
-        ///     Initializes the wrappers.
+        /// Initializes the wrappers.
         /// </summary>
         /// <param name="config">The config.</param>
         /// <param name="getProvider">The get provider delegate.</param>
         private void Initialize(NameValueCollection config, Func<string, TProvider> getProvider)
         {
-            List<XmlNode> providerNodesFromConfig = GetProviderNodesFromConfig(config);
+            List<XmlNode> providerNodesFromConfig = this.GetProviderNodesFromConfig(config);
+
             foreach (XmlNode xmlNodes in providerNodesFromConfig)
             {
                 var tWrapper = Activator.CreateInstance<TWrapper>();
                 tWrapper.Initialize(xmlNodes, this, getProvider);
-                Add(tWrapper);
+                this.Add(tWrapper);
             }
-            BuildSiteMap();
-            _defaultWrapper = _siteMap["*"];
-            Assert.IsNotNull(_defaultWrapper,
-                             $"No default provider (\"default\") was found below the configuration node pointed to by the 'mappings' attribute of the { _ownerTypeName} configuration. Provider: {_owner.Name}");
-        }
 
-        #endregion Methods
+            this.BuildSiteMap();
+            this.defaultWrapper = this.siteMap["*"];
+            Assert.IsNotNull(this.defaultWrapper, $"No default provider (\"default\") was found below the configuration node pointed to by the 'mappings' attribute of the {this.ownerTypeName} configuration. Provider: {this.owner.Name}");
+        }
     }
 }
