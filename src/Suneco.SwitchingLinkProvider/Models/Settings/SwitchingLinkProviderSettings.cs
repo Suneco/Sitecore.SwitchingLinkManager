@@ -1,11 +1,17 @@
-﻿namespace Suneco.SwitchingLinkManager.Models.Settings
+﻿namespace Suneco.SwitchingLinkProvider.Models.Settings
 {
     using System.Collections.Generic;
     using System.Xml;
-    using SwitchingLinkProvider.Models.Settings;
 
     public class SwitchingLinkProviderSettings : SettingBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SwitchingLinkProviderSettings"/> class.
+        /// </summary>
+        public SwitchingLinkProviderSettings()
+        {
+        }
+
         public SwitchingLinkProviderSettings(XmlDocument configuration)
             : base(configuration)
         {

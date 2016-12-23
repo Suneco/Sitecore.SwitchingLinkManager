@@ -262,7 +262,7 @@
             NameValueCollection nameValueCollection = config;
             SwitchingLinkProvider switchingMembershipProvider = this;
 
-            linkProviderWrapperList.wrappers = new LinkProviderWrapperCollection(nameValueCollection, switchingMembershipProvider, providerName => LinkManager.Providers[providerName]);
+            linkProviderWrapperList.wrappers = new LinkProviderWrapperCollection(nameValueCollection, switchingMembershipProvider, providerName => LinkManager.Providers[providerName], this.sitecoreService);
         }
 
         /// <summary>

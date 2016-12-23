@@ -2,11 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using Models.Settings;
     using Sitecore.Configuration;
     using Sitecore.Sites;
     using Sitecore.Web;
-    using Suneco.SwitchingLinkManager.Models.Settings;
-    using Suneco.SwitchingLinkProvider.Services.Interfaces;
+    using Interfaces;
 
     /// <summary>
     /// Provides access to sitecore methods

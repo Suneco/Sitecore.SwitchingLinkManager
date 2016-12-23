@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Specialized;
     using System.Configuration.Provider;
-
+    using Services.Interfaces;
     using Sitecore.Links;
 
     /// <summary>
@@ -18,8 +18,9 @@
         /// <param name="config">The config.</param>
         /// <param name="owner">The owner.</param>
         /// <param name="getProvider">The get provider.</param>
-        public LinkProviderWrapperCollection(NameValueCollection config, ProviderBase owner, Func<string, LinkProvider> getProvider)
-            : base(config, owner, getProvider)
+        /// <param name="sitecoreService">The sitecore service.</param>
+        public LinkProviderWrapperCollection(NameValueCollection config, ProviderBase owner, Func<string, LinkProvider> getProvider, ISitecoreService sitecoreService)
+            : base(config, owner, getProvider, sitecoreService)
         {
         }
     }

@@ -4,7 +4,7 @@
     using System.Text;
     using System.Xml;
     using FluentAssertions;
-    using SwitchingLinkManager.Models.Settings;
+    using Suneco.SwitchingLinkProvider.Models.Settings;
     using Xunit;
 
     public class SwitchingLinkProviderSettingsTests
