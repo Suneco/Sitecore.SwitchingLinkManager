@@ -1,0 +1,2 @@
+# Suneco.SwitchingLinkManager
+Sitecore.SwitchingLinkManager
