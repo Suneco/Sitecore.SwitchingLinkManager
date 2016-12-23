@@ -1,7 +1,7 @@
-﻿using Sitecore.Diagnostics;
-
-namespace Suneco.SwitchingLinkManager.Business
+﻿namespace Suneco.SwitchingLinkProvider.Business
 {
+    using Sitecore.Diagnostics;
+
     public class SitecoreLogger : ILogger
     {
         public void Info(string message, object owner)

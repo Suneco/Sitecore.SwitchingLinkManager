@@ -1,4 +1,4 @@
-﻿namespace Suneco.SwitchingLinkManager
+﻿namespace Suneco.SwitchingLinkProvider
 {
     using System;
     using System.Collections.Specialized;

@@ -1,11 +1,10 @@
-﻿using Sitecore.Diagnostics;
-using Sitecore.Xml;
-
-namespace Suneco.SwitchingLinkManager
+﻿namespace Suneco.SwitchingLinkProvider
 {
     using System;
     using System.Configuration.Provider;
     using System.Xml;
+    using Sitecore.Diagnostics;
+    using Sitecore.Xml;
 
     /// <summary>
     /// 
@@ -38,10 +37,10 @@ namespace Suneco.SwitchingLinkManager
             {
                 if (_provider == null)
                 {
-                    
+
                     _provider = _getProvider(_providerName);
                     // TODO: must be unit tested.
-                    Log.Warn($"Non-existing provider referenced by the 'providerName' attribute in the domain/provider mapping of the {_owner.OwnerTypeName} '{_owner.Owner.Name}'. Referenced provider: {_providerName} ",this);
+                    Log.Warn($"Non-existing provider referenced by the 'providerName' attribute in the domain/provider mapping of the {_owner.OwnerTypeName} '{_owner.Owner.Name}'. Referenced provider: {_providerName} ", this);
                 }
                 return _provider;
             }

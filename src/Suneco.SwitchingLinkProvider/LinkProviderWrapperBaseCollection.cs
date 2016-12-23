@@ -1,11 +1,10 @@
-﻿namespace Suneco.SwitchingLinkManager
-{    
+﻿namespace Suneco.SwitchingLinkProvider
+{
     using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Configuration.Provider;
     using System.Xml;
-
     using Sitecore.Collections;
     using Sitecore.Configuration;
     using Sitecore.Diagnostics;
@@ -98,7 +97,7 @@
             foreach (var tWrapper in this)
             {
                 Assert.IsFalse(_siteMap.ContainsKey(tWrapper.Sitename),
-                               $"Duplicate sitename name found in the linkmanager/provider mapping of the {_ownerTypeName} '{_owner.Name}'. sitename: {tWrapper.Sitename}");
+                               $"Duplicate sitename name found in the link provider mapping of the {_ownerTypeName} '{_owner.Name}'. sitename: {tWrapper.Sitename}");
                 _siteMap.Add(tWrapper.Sitename, tWrapper);
             }
         }
@@ -111,7 +110,7 @@
         private List<XmlNode> GetProviderNodesFromConfig(NameValueCollection config)
         {
             string item = config["mappings"];
-            Assert.IsNotNullOrEmpty(item,$"The configuration for {_ownerTypeName} must have a non-empty 'mappings' attribute pointing to the domain/provider mappings. Provider name: {_owner.Name}");
+            Assert.IsNotNullOrEmpty(item, $"The configuration for {_ownerTypeName} must have a non-empty 'mappings' attribute pointing to the domain/provider mappings. Provider name: {_owner.Name}");
 
             var configNode = Factory.GetConfigNode(item);
             Assert.IsNotNull(configNode,
