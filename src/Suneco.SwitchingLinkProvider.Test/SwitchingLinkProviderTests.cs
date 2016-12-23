@@ -1,6 +1,4 @@
-﻿
-
-namespace Suneco.SwitchingLinkProvider.Test
+﻿namespace Suneco.SwitchingLinkProvider.Test
 {
     using Xunit;
 
@@ -15,7 +13,7 @@ namespace Suneco.SwitchingLinkProvider.Test
         [Fact]
         public void Test001()
         {
-            Assert.True(true,"It's working");
+            Assert.True(true, "It's working");
         }
     }
 }
