@@ -23,14 +23,14 @@
         private TWrapper defaultWrapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LinkProviderWrapperBaseCollection{TProvider, TWrapper}"/> class.
+        /// Initializes a new instance of the <see cref="LinkProviderWrapperBaseCollection{TProvider, TWrapper}" /> class.
         /// </summary>
         /// <param name="config">The configuration.</param>
         /// <param name="owner">The owner.</param>
         /// <param name="getProvider">The get provider.</param>
-        public LinkProviderWrapperBaseCollection(NameValueCollection config, ProviderBase owner, Func<string, TProvider> getProvider, ISitecoreService sitecoreService)
+        /// <param name="sitecoreService">The sitecore service.</param>
+        public LinkProviderWrapperBaseCollection(ProviderBase owner, Func<string, TProvider> getProvider, ISitecoreService sitecoreService)
         {
-            Assert.ArgumentNotNull(config, "config");
             Assert.ArgumentNotNull(owner, "owner");
             Assert.ArgumentNotNull(getProvider, "getProvider");
             Assert.ArgumentNotNull(sitecoreService, "sitecoreService");
@@ -38,7 +38,7 @@
             this.owner = owner;
             this.ownerTypeName = this.owner.GetType().FullName;
             this.sitecoreService = sitecoreService;
-            this.Initialize(config, getProvider);
+            this.Initialize(getProvider);
         }
 
         /// <summary>
@@ -121,9 +121,8 @@
         /// <summary>
         /// Initializes the wrappers.
         /// </summary>
-        /// <param name="config">The config.</param>
         /// <param name="getProvider">The get provider delegate.</param>
-        private void Initialize(NameValueCollection config, Func<string, TProvider> getProvider)
+        private void Initialize(Func<string, TProvider> getProvider)
         {
             var settings = this.sitecoreService.GetLinkProviderSettings();
 
@@ -136,15 +135,6 @@
                     this.Add(tWrapper);
                 }
             }
-
-            //List<XmlNode> providerNodesFromConfig = this.GetProviderNodesFromConfig(config);
-
-            //foreach (XmlNode xmlNodes in providerNodesFromConfig)
-            //{
-            //    var tWrapper = Activator.CreateInstance<TWrapper>();
-            //    tWrapper.Initialize(xmlNodes, this, getProvider);
-            //    this.Add(tWrapper);
-            //}
 
             this.BuildSiteMap();
             this.defaultWrapper = this.siteMap["*"];

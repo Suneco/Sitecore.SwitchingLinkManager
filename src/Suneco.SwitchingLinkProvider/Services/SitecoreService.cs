@@ -2,11 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using Interfaces;
     using Models.Settings;
     using Sitecore.Configuration;
     using Sitecore.Sites;
     using Sitecore.Web;
-    using Interfaces;
 
     /// <summary>
     /// Provides access to sitecore methods

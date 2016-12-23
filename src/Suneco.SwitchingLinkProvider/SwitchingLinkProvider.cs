@@ -253,16 +253,14 @@
         public override void Initialize(string name, NameValueCollection config)
         {
             Assert.ArgumentNotNull(name, "name");
-            Assert.ArgumentNotNull(config, "config");
 
             base.Initialize(name, config);
             this.Debug = this.sitecoreService.GetLinkProviderSettings().LogDebugInfo;
 
             SwitchingLinkProvider linkProviderWrapperList = this;
-            NameValueCollection nameValueCollection = config;
             SwitchingLinkProvider switchingMembershipProvider = this;
 
-            linkProviderWrapperList.wrappers = new LinkProviderWrapperCollection(nameValueCollection, switchingMembershipProvider, providerName => LinkManager.Providers[providerName], this.sitecoreService);
+            linkProviderWrapperList.wrappers = new LinkProviderWrapperCollection(switchingMembershipProvider, providerName => LinkManager.Providers[providerName], this.sitecoreService);
         }
 
         /// <summary>
