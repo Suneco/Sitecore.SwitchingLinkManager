@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suneco.SwitchingLinkProvider", "Suneco.SwitchingLinkProvider\Suneco.SwitchingLinkProvider.csproj", "{8335C37B-3AC0-4343-83CC-A0EFD3C17EFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suneco.SwitchingLinkProvider.xUnit", "Suneco.SwitchingLinkProvider.xUnit\Suneco.SwitchingLinkProvider.xUnit.csproj", "{0F625574-24D0-4840-9078-57D542D77E2F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suneco.SwitchingLinkProvider.Test", "Suneco.SwitchingLinkProvider.Test\Suneco.SwitchingLinkProvider.Test.csproj", "{0F625574-24D0-4840-9078-57D542D77E2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
