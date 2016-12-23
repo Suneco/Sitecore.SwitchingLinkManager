@@ -54,7 +54,7 @@
     <Compile Include="Business\SitecoreLogger.cs" />
     <Compile Include="Business\ISitecoreService.cs" />
     <Compile Include="Business\SitecoreService.cs" />
-    <Compile Include="Models\Settings\LinkProviderSettings.cs" />
+    <Compile Include="Models\Settings\SwitchingLinkProviderSettings.cs" />
     <Compile Include="Models\Settings\SettingBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LinkProviderBaseWrapper.cs" />

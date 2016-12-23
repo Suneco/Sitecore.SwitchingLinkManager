@@ -2,9 +2,9 @@
 {
     using System.Xml;
 
-    public class LinkProviderSettings : SettingBase
+    public class SwitchingLinkProviderSettings : SettingBase
     {
-        public LinkProviderSettings(XmlDocument configuration)
+        public SwitchingLinkProviderSettings(XmlDocument configuration)
             : base(configuration)
         {
         }
@@ -35,7 +35,12 @@
                 return;
             }
 
-            this.LogDebugInfo = this.ConvertToBoolean(module.Attributes["logDebugInfo"]);
+            var logDebugInfoNode = module.SelectSingleNode("logDebugInfo");
+
+            if (logDebugInfoNode != null)
+            {
+                this.LogDebugInfo = this.ConvertToBoolean(logDebugInfoNode.Attributes["value"]);
+            }
         }
     }
 }
