@@ -7,8 +7,14 @@
     using Suneco.SwitchingLinkProvider.Models.Settings;
     using Xunit;
 
+    /// <summary>
+    /// Switching link provider settings tests
+    /// </summary>
     public class SwitchingLinkProviderSettingsTests
     {
+        /// <summary>
+        /// Should load module configuration without settings.
+        /// </summary>
         [Fact]
         public void ShouldLoadModuleConfigurationWithoutSettings()
         {
@@ -23,6 +29,9 @@
             settings.LogDebugInfo.Should().BeFalse(because: "Without any configuration the default value should be false");
         }
 
+        /// <summary>
+        /// Should load module configuration with settings.
+        /// </summary>
         [Fact]
         public void ShouldLoadModuleConfigurationWithSettings()
         {

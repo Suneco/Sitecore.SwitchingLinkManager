@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using FluentAssertions;
     using Moq;
-    using Services.Interfaces;
     using Suneco.SwitchingLinkProvider.Models.Settings;
+    using Suneco.SwitchingLinkProvider.Services.Interfaces;
     using Xunit;
 
     /// <summary>
@@ -12,8 +12,11 @@
     /// </summary>
     public class SwitchingLinkProviderTests
     {
+        /// <summary>
+        /// Should construct switching link provider.
+        /// </summary>
         [Fact]
-        public void ShouldConstructSwithcingLinkProvider()
+        public void ShouldConstructSwitchingLinkProvider()
         {
             var loggingServiceMock = new Mock<ILoggingService>();
             var sitecoreServiceMock = new Mock<ISitecoreService>();
@@ -22,8 +25,11 @@
             provider.Should().NotBeNull();
         }
 
+        /// <summary>
+        /// Should initialize switching link provider.
+        /// </summary>
         [Fact]
-        public void ShouldInitializeSwithcingLinkProvider()
+        public void ShouldInitializeSwitchingLinkProvider()
         {
             var loggingServiceMock = new Mock<ILoggingService>();
             var sitecoreServiceMock = new Mock<ISitecoreService>();
