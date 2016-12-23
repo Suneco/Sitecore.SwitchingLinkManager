@@ -2,8 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
+    using Sitecore.Configuration;
     using Sitecore.Sites;
     using Sitecore.Web;
+    using Suneco.SwitchingLinkManager.Models.Settings;
 
     /// <summary>
     /// Provides access to sitecore methods
@@ -11,7 +14,9 @@
     /// <seealso cref="Suneco.SwitchingLinkProvider.Business.ISitecoreService" />
     public class SitecoreService : ISitecoreService
     {
-        /// <summary>
+        private SwitchingLinkProviderSettings linkProviderSettings;
+
+                /// <summary>
         /// Gets the sites.
         /// </summary>
         /// <value>The sites.</value>
@@ -26,6 +31,20 @@
         public Uri GetRequestUri()
         {
             return WebUtil.GetRequestUri();
+        }
+
+        /// <summary>
+        /// Gets the link provider settings.
+        /// </summary>
+        /// <returns></returns>
+        public SwitchingLinkProviderSettings GetLinkProviderSettings()
+        {
+            if (this.linkProviderSettings == null)
+            {
+                this.linkProviderSettings = (SwitchingLinkProviderSettings)Activator.CreateInstance(typeof(SwitchingLinkProviderSettings), Factory.GetConfiguration());
+            }
+
+            return this.linkProviderSettings;
         }
     }
 }
