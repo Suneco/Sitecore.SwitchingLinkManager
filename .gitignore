@@ -20,3 +20,5 @@
 
 # NuGet
 src/packages/
+
+src/Backup/
