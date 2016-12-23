@@ -8,8 +8,8 @@
     <ProjectGuid>{0F625574-24D0-4840-9078-57D542D77E2F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Suneco.SwitchingLinkProvider.xUnit</RootNamespace>
-    <AssemblyName>Suneco.SwitchingLinkProvider.xUnit</AssemblyName>
+    <RootNamespace>Suneco.SwitchingLinkProvider.Test</RootNamespace>
+    <AssemblyName>Suneco.SwitchingLinkProvider.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -68,7 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SwitchingLinkProviderTest.cs" />
+    <Compile Include="SwitchingLinkProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
