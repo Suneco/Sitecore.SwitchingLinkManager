@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Sitecore.Configuration;
-using Sitecore.Web;
-
-namespace Suneco.SwitchingLinkManager.Business
+﻿namespace Suneco.SwitchingLinkProvider.Business
 {
+    using System;
+    using System.Collections.Generic;
+    using Sitecore.Web;
+
     public interface ISitecoreService
     {
         Uri GetRequestUri();

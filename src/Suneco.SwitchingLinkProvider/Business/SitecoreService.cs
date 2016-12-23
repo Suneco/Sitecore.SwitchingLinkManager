@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Sitecore.Sites;
-using Sitecore.Web;
-
-namespace Suneco.SwitchingLinkManager.Business
+﻿namespace Suneco.SwitchingLinkProvider.Business
 {
+    using System;
+    using System.Collections.Generic;
+    using Sitecore.Sites;
+    using Sitecore.Web;
+
     public class SitecoreService : ISitecoreService
     {
         public Uri GetRequestUri()
@@ -13,7 +13,5 @@ namespace Suneco.SwitchingLinkManager.Business
         }
 
         public List<SiteInfo> Sites => SiteContextFactory.Sites;
-
-
     }
 }

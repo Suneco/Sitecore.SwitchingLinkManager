@@ -7,8 +7,8 @@
     <ProjectGuid>{8335C37B-3AC0-4343-83CC-A0EFD3C17EFC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Suneco.SwitchingLinkManager</RootNamespace>
-    <AssemblyName>Suneco.SwitchingLinkManager</AssemblyName>
+    <RootNamespace>Suneco.SwitchingLinkProvider</RootNamespace>
+    <AssemblyName>Suneco.SwitchingLinkProvider</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

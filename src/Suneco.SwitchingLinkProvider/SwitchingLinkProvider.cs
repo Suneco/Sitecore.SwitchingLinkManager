@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Diagnostics;
-using System.Linq;
-using System.Web;
-using Sitecore.Data.Items;
-using Sitecore.Diagnostics;
-using Sitecore.Install.Utils;
-using Sitecore.Links;
-using Sitecore.Sites;
-using Sitecore.StringExtensions;
-using Sitecore.Web;
-using Suneco.SwitchingLinkManager.Business;
-
-namespace Suneco.SwitchingLinkManager
+﻿namespace Suneco.SwitchingLinkProvider
 {
-  
+    using System;
+    using System.Collections.Specialized;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Web;
+    using Business;
+    using Sitecore.Data.Items;
+    using Sitecore.Diagnostics;
+    using Sitecore.Links;
+    using Sitecore.StringExtensions;
+    using Sitecore.Web;
+
     public class SwitchingLinkProvider : LinkProvider
     {
         #region Fields
@@ -135,7 +132,7 @@ namespace Suneco.SwitchingLinkManager
                 }
                 catch (Exception ex)
                 {
-                    _logger.Error($"SwitchingLinkProvider : {ex.Message}",this);
+                    _logger.Error($"SwitchingLinkProvider : {ex.Message}", this);
                 }
 
                 return null;
@@ -144,7 +141,7 @@ namespace Suneco.SwitchingLinkManager
 
         #endregion Properties
 
-        public SwitchingLinkProvider(ILogger logger,ISitecoreService scService)
+        public SwitchingLinkProvider(ILogger logger, ISitecoreService scService)
         {
             _logger = logger;
             _sitecoreService = scService;

@@ -1,4 +1,4 @@
-﻿namespace Suneco.SwitchingLinkManager
+﻿namespace Suneco.SwitchingLinkProvider
 {
     using Sitecore.Links;
 
