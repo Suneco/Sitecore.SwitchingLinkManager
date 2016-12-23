@@ -38,7 +38,7 @@
                 return;
             }
 
-            var module = configuration.SelectSingleNode("sitecore/suneco.switchinglinkprovider");
+            var module = configuration.SelectSingleNode("sitecore/suneco.switchingLinkProvider");
 
             if (module == null)
             {

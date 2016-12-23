@@ -28,13 +28,13 @@
         {
             var sb = new StringBuilder();
             sb.Append("<sitecore>");
-            sb.Append("  <suneco.switchinglinkprovider>");
+            sb.Append("  <suneco.switchingLinkProvider>");
             sb.Append("    <logDebugInfo value=\"true\" />");
             sb.Append("    <mappings>");
             sb.Append("      <mapping siteName=\"*\" linkProviderName=\"default\" />");
             sb.Append("      <mapping siteName=\"testsite\" linkProviderName=\"testlinkprovider\" />");
             sb.Append("    </mappings>");
-            sb.Append("  </suneco.switchinglinkprovider>");
+            sb.Append("  </suneco.switchingLinkProvider>");
             sb.Append("</sitecore>");
 
             var xdoc = new XmlDocument();
