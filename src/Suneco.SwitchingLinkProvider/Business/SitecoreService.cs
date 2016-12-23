@@ -2,8 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+using System.Configuration;
+using Sitecore.Configuration;
     using Sitecore.Sites;
     using Sitecore.Web;
+using Suneco.SwitchingLinkManager.Models.Settings;
 
     /// <summary>
     /// Provides access to sitecore methods
@@ -27,5 +30,13 @@
         {
             return WebUtil.GetRequestUri();
         }
-    }
+        public LinkProviderSettings GetLinkProviderSettings()
+        {
+            if (this.linkProviderSettings == null)
+            {
+                this.linkProviderSettings = (LinkProviderSettings)Activator.CreateInstance(typeof(LinkProviderSettings), Factory.GetConfiguration());
+            }
+            return this.linkProviderSettings;
+        }
+   }
 }

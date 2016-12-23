@@ -255,7 +255,7 @@
             Assert.ArgumentNotNull(config, "config");
 
             base.Initialize(name, config);
-            this.Debug = Sitecore.Configuration.Settings.GetBoolSetting("SwitchingLinkProvider.Debug", false);
+            Debug = this._sitecoreService.GetLinkProviderSettings().LogDebugInfo;
 
             SwitchingLinkProvider linkProviderWrapperList = this;
             NameValueCollection nameValueCollection = config;

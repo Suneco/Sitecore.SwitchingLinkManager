@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Sitecore.Web;
+using Suneco.SwitchingLinkManager.Models.Settings;
 
     /// <summary>
     /// Interface that provides access to sitecore methods
@@ -16,6 +17,8 @@
         List<SiteInfo> Sites { get; }
 
         /// <summary>
+        LinkProviderSettings GetLinkProviderSettings();
+        
         /// Gets the request URI.
         /// </summary>
         /// <returns>The URI of the request</returns>
