@@ -22,9 +22,13 @@ license.xml
 # Visual Studio 2015 cache/options directory
 src/.vs
 src/.vs/config/applicationhost.config
+Examples/.vs
+Examples/.vs/config/applicationhost.config
 
 # NuGet
 src/packages/
+Examples/packages/
+Examples/Suneco.SwitchingLinkProvider.Example1/packages
 
 # Backup
 src/Backup/
