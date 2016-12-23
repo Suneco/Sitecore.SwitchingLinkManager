@@ -10,6 +10,7 @@
 # User-specific files
 *.suo
 *.user
+license.xml
 
 # Build results
 [Dd]ebug/
@@ -18,7 +19,12 @@
 [Bb]in/
 [Oo]bj/
 
+# Visual Studio 2015 cache/options directory
+src/.vs
+src/.vs/config/applicationhost.config
+
 # NuGet
 src/packages/
 
+# Backup
 src/Backup/
