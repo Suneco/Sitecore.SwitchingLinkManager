@@ -15,8 +15,8 @@
     public class SwitchingLinkProvider : LinkProvider
     {
         private LinkProviderWrapperCollection wrappers;
-        private ILogger logger;
-        private ISitecoreService sitecoreService;
+        private readonly ILogger logger;
+        private readonly ISitecoreService sitecoreService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SwitchingLinkProvider"/> class.
@@ -255,7 +255,7 @@
             Assert.ArgumentNotNull(config, "config");
 
             base.Initialize(name, config);
-            Debug = this._sitecoreService.GetLinkProviderSettings().LogDebugInfo;
+            this.Debug = this.sitecoreService.GetLinkProviderSettings().LogDebugInfo;
 
             SwitchingLinkProvider linkProviderWrapperList = this;
             NameValueCollection nameValueCollection = config;

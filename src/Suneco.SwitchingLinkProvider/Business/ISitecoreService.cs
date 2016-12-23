@@ -19,9 +19,10 @@
         /// <summary>
         /// Gets the link provider settings.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The switching link provider settings</returns>
         SwitchingLinkProviderSettings GetLinkProviderSettings();
-        
+
+        /// <summary>
         /// Gets the request URI.
         /// </summary>
         /// <returns>The URI of the request</returns>
