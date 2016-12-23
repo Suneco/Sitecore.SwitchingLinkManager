@@ -48,10 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\ILogger.cs" />
-    <Compile Include="Business\SitecoreLogger.cs" />
-    <Compile Include="Business\ISitecoreService.cs" />
-    <Compile Include="Business\SitecoreService.cs" />
+    <Compile Include="Services\Interfaces\ILoggingService.cs" />
+    <Compile Include="Services\SitecoreLogging.cs" />
+    <Compile Include="Services\Interfaces\ISitecoreService.cs" />
+    <Compile Include="Services\SitecoreService.cs" />
     <Compile Include="Models\Settings\SwitchingLinkProviderSettings.cs" />
     <Compile Include="Models\Settings\SettingBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,4 +1,4 @@
-﻿namespace Suneco.SwitchingLinkProvider.Business
+﻿namespace Suneco.SwitchingLinkProvider.Services.Interfaces
 {
     using System;
     using System.Collections.Generic;

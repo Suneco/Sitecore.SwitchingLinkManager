@@ -1,6 +1,6 @@
 ﻿namespace Suneco.SwitchingLinkProvider.xUnit.Models.Settings
 {
-   using System.Text;
+    using System.Text;
     using System.Xml;
     using FluentAssertions;
     using SwitchingLinkManager.Models.Settings;

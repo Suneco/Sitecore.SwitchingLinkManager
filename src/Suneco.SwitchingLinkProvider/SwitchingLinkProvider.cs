@@ -10,22 +10,23 @@
     using Sitecore.Links;
     using Sitecore.StringExtensions;
     using Sitecore.Web;
-    using Suneco.SwitchingLinkProvider.Business;
+    using Suneco.SwitchingLinkProvider.Services;
+    using Suneco.SwitchingLinkProvider.Services.Interfaces;
 
     public class SwitchingLinkProvider : LinkProvider
     {
-        private LinkProviderWrapperCollection wrappers;
-        private readonly ILogger logger;
+        private readonly ILoggingService loggingService;
         private readonly ISitecoreService sitecoreService;
+        private LinkProviderWrapperCollection wrappers;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SwitchingLinkProvider"/> class.
         /// </summary>
-        /// <param name="logger">The logger.</param>
+        /// <param name="loggingService">The logging service.</param>
         /// <param name="sitecoreService">The sc service.</param>
-        public SwitchingLinkProvider(ILogger logger, ISitecoreService sitecoreService)
+        public SwitchingLinkProvider(ILoggingService loggingService, ISitecoreService sitecoreService)
         {
-            this.logger = logger;
+            this.loggingService = loggingService;
             this.sitecoreService = sitecoreService;
         }
 
@@ -34,7 +35,7 @@
         /// </summary>
         public SwitchingLinkProvider()
         {
-            this.logger = new Business.SitecoreLogger();
+            this.loggingService = new SitecoreLogging();
             this.sitecoreService = new SitecoreService();
         }
 
@@ -146,7 +147,7 @@
                 }
                 catch (Exception ex)
                 {
-                    this.logger.Error($"SwitchingLinkProvider : {ex.Message}", this);
+                    this.loggingService.Error($"SwitchingLinkProvider : {ex.Message}", this);
                 }
 
                 return null;
