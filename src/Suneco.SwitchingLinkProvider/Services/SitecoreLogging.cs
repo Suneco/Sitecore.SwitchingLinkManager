@@ -1,36 +1,52 @@
-﻿namespace Suneco.SwitchingLinkProvider.Business
+﻿namespace Suneco.SwitchingLinkProvider.Services
 {
+    using Sitecore.Diagnostics;
+    using Suneco.SwitchingLinkProvider.Services.Interfaces;
+
     /// <summary>
-    /// Interface that provides access to logging methods.
+    /// Provides access to the sitecore logging methods.
     /// </summary>
-    public interface ILogger
+    /// <seealso cref="Suneco.SwitchingLinkProvider.Services.Interfaces.ILoggingService" />
+    public class SitecoreLogging : ILoggingService
     {
         /// <summary>
         /// Logs the specified information message.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="owner">The owner.</param>
-        void Info(string message, object owner);
+        public void Info(string message, object owner)
+        {
+            Log.Warn(message, owner);
+        }
 
         /// <summary>
         /// Logs the specified warning message.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="owner">The owner.</param>
-        void Warn(string message, object owner);
+        public void Warn(string message, object owner)
+        {
+            Log.Warn(message, owner);
+        }
 
         /// <summary>
         /// Logs the specified error message.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="owner">The owner.</param>
-        void Error(string message, object owner);
+        public void Error(string message, object owner)
+        {
+            Log.Warn(message, owner);
+        }
 
         /// <summary>
         /// Logs the specified debug message.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="owner">The owner.</param>
-        void Debug(string message, object owner);
+        public void Debug(string message, object owner)
+        {
+            Log.Warn(message, owner);
+        }
     }
 }

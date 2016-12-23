@@ -1,51 +1,36 @@
-﻿namespace Suneco.SwitchingLinkProvider.Business
+﻿namespace Suneco.SwitchingLinkProvider.Services.Interfaces
 {
-    using Sitecore.Diagnostics;
-
     /// <summary>
-    /// Provides access to the sitecore logging methods.
+    /// Interface that provides access to logging methods.
     /// </summary>
-    /// <seealso cref="Suneco.SwitchingLinkProvider.Business.ILogger" />
-    public class SitecoreLogger : ILogger
+    public interface ILoggingService
     {
         /// <summary>
         /// Logs the specified information message.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="owner">The owner.</param>
-        public void Info(string message, object owner)
-        {
-            Log.Warn(message, owner);
-        }
+        void Info(string message, object owner);
 
         /// <summary>
         /// Logs the specified warning message.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="owner">The owner.</param>
-        public void Warn(string message, object owner)
-        {
-            Log.Warn(message, owner);
-        }
+        void Warn(string message, object owner);
 
         /// <summary>
         /// Logs the specified error message.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="owner">The owner.</param>
-        public void Error(string message, object owner)
-        {
-            Log.Warn(message, owner);
-        }
+        void Error(string message, object owner);
 
         /// <summary>
         /// Logs the specified debug message.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="owner">The owner.</param>
-        public void Debug(string message, object owner)
-        {
-            Log.Warn(message, owner);
-        }
+        void Debug(string message, object owner);
     }
 }
