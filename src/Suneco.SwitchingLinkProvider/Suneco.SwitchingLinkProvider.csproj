@@ -85,6 +85,7 @@
     <Content Include="App_Config\Include\Suneco\LinkManager.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="nuget.nuspec" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
