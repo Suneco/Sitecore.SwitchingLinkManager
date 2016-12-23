@@ -1,6 +1,8 @@
 ﻿namespace Suneco.SwitchingLinkManager.Models.Settings
 {
+    using System.Collections.Generic;
     using System.Xml;
+    using SwitchingLinkProvider.Models.Settings;
 
     public class SwitchingLinkProviderSettings : SettingBase
     {
@@ -16,6 +18,14 @@
         ///   <c>true</c> if [log debug information]; otherwise, <c>false</c>.
         /// </value>
         public bool LogDebugInfo { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mappings.
+        /// </summary>
+        /// <value>
+        /// The mappings.
+        /// </value>
+        public IEnumerable<Mapping> Mappings { get; set; }
 
         /// <summary>
         /// Loads the configuration.
@@ -41,6 +51,17 @@
             {
                 this.LogDebugInfo = this.ConvertToBoolean(logDebugInfoNode.Attributes["value"]);
             }
+
+            var mappings = new List<Mapping>();
+            foreach(XmlNode mappingNode in module.SelectNodes("mappings/mapping"))
+            {
+                var mapping = new Mapping();
+                mapping.SiteName = mappingNode.Attributes["siteName"]?.Value;
+                mapping.LinkProviderName = mappingNode.Attributes["linkProviderName"]?.Value;
+                mappings.Add(mapping);
+            }
+
+            this.Mappings = mappings;
         }
     }
 }

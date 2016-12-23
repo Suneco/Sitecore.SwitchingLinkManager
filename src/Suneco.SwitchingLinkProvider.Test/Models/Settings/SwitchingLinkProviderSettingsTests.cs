@@ -1,5 +1,6 @@
-﻿namespace Suneco.SwitchingLinkProvider.xUnit.Models.Settings
+﻿namespace Suneco.SwitchingLinkProvider.Test.Models.Settings
 {
+    using System.Linq;
     using System.Text;
     using System.Xml;
     using FluentAssertions;
@@ -29,6 +30,10 @@
             sb.Append("<sitecore>");
             sb.Append("  <suneco.switchinglinkprovider>");
             sb.Append("    <logDebugInfo value=\"true\" />");
+            sb.Append("    <mappings>");
+            sb.Append("      <mapping siteName=\"*\" linkProviderName=\"default\" />");
+            sb.Append("      <mapping siteName=\"testsite\" linkProviderName=\"testlinkprovider\" />");
+            sb.Append("    </mappings>");
             sb.Append("  </suneco.switchinglinkprovider>");
             sb.Append("</sitecore>");
 
@@ -37,6 +42,9 @@
 
             var settings = new SwitchingLinkProviderSettings(xdoc);
             settings.LogDebugInfo.Should().BeTrue(because: "The log debug info configuration should be true");
+            settings.Mappings.Should().HaveCount(2);
+            settings.Mappings.FirstOrDefault(x => x.SiteName == "*").LinkProviderName.ShouldBeEquivalentTo("default");
+            settings.Mappings.FirstOrDefault(x => x.SiteName == "testsite").LinkProviderName.ShouldBeEquivalentTo("testlinkprovider");
         }
     }
 }

@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Settings\Mapping.cs" />
     <Compile Include="Services\Interfaces\ILoggingService.cs" />
     <Compile Include="Services\SitecoreLogging.cs" />
     <Compile Include="Services\Interfaces\ISitecoreService.cs" />
