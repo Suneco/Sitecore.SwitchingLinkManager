@@ -1,0 +1,14 @@
+﻿---
+ID: "13b6bfef-882e-4527-ab76-b3b9167375df"
+Parent: "e06f1b4e-82e1-41fd-b66b-418742ddd5e1"
+Template: "99f8905d-4a87-4eb8-9f8b-a9bebfb3add6"
+Path: /sitecore/layout/Renderings/Example1/Example Rendering
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161223T144931Z
