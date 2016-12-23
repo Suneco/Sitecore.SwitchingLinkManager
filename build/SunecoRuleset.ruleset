@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="Copy of Rules for CodeFirst" Description="Code analysis rules for CodeFirst.csproj." ToolsVersion="14.0">
+<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Suneco ruleset" Description="Code analysis rules for CodeFirst.csproj." ToolsVersion="14.0">
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
     <Rule Id="CA1001" Action="Warning" />
     <Rule Id="CA1009" Action="Warning" />

@@ -53,7 +53,7 @@
             }
 
             var mappings = new List<Mapping>();
-            foreach(XmlNode mappingNode in module.SelectNodes("mappings/mapping"))
+            foreach (XmlNode mappingNode in module.SelectNodes("mappings/mapping"))
             {
                 var mapping = new Mapping();
                 mapping.SiteName = mappingNode.Attributes["siteName"]?.Value;
