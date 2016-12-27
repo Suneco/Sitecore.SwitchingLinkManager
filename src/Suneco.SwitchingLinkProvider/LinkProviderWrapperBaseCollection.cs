@@ -97,28 +97,6 @@
         }
 
         /// <summary>
-        /// Gets the provider nodes from config.
-        /// </summary>
-        /// <param name="config">The config.</param>
-        /// <returns>The provider nodes from the config</returns>
-        private List<XmlNode> GetProviderNodesFromConfig(NameValueCollection config)
-        {
-            string item = config["mappings"];
-
-            Assert.IsNotNullOrEmpty(item, $"The configuration for {this.ownerTypeName} must have a non-empty 'mappings' attribute pointing to the domain/provider mappings. Provider name: {this.owner.Name}");
-
-            var configNode = Factory.GetConfigNode(item);
-            Assert.IsNotNull(configNode, $"Could not find the configuration node pointed to by the 'mappings' attribute of the {this.ownerTypeName} configuration. Provider: {this.owner.Name}, mappings path: {item}");
-
-            var childNodes = XmlUtil.GetChildNodes("provider", configNode);
-
-            var flag = childNodes != null && childNodes.Count > 0;
-            Assert.IsTrue(flag, $"Could not find any 'provider' nodes below the configuration node pointed to by the 'mappings' attribute of the {this.ownerTypeName} configuration. Provider: {this.owner.Name}, mappings path: {item}");
-
-            return childNodes;
-        }
-
-        /// <summary>
         /// Initializes the wrappers.
         /// </summary>
         /// <param name="getProvider">The get provider delegate.</param>

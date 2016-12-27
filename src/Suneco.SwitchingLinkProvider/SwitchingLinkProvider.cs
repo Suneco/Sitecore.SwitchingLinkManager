@@ -260,7 +260,10 @@
             SwitchingLinkProvider linkProviderWrapperList = this;
             SwitchingLinkProvider switchingMembershipProvider = this;
 
-            linkProviderWrapperList.wrappers = new LinkProviderWrapperCollection(switchingMembershipProvider, providerName => LinkManager.Providers[providerName], this.sitecoreService);
+            linkProviderWrapperList.wrappers = new LinkProviderWrapperCollection(
+                switchingMembershipProvider,
+                providerName => this.sitecoreService.LinkProviders[providerName],
+                this.sitecoreService);
         }
 
         /// <summary>

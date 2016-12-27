@@ -80,9 +80,6 @@
     <Compile Include="TestLinkProvider1.cs" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Config\Include\Suneco\LinkManager.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

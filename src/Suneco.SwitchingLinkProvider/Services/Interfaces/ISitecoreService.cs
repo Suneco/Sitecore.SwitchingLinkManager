@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Xml;
     using Models.Settings;
+    using Sitecore.Links;
     using Sitecore.Web;
 
     /// <summary>
@@ -17,6 +19,14 @@
         List<SiteInfo> Sites { get; }
 
         /// <summary>
+        /// Gets the link providers.
+        /// </summary>
+        /// <value>
+        /// The link providers.
+        /// </value>
+        LinkProviderCollection LinkProviders { get; }
+
+        /// <summary>
         /// Gets the link provider settings.
         /// </summary>
         /// <returns>The switching link provider settings</returns>
@@ -27,5 +37,11 @@
         /// </summary>
         /// <returns>The URI of the request</returns>
         Uri GetRequestUri();
+
+        /// <summary>
+        /// Gets the sitecore configuration.
+        /// </summary>
+        /// <returns>The Sitecore configuration</returns>
+        XmlDocument GetSitecoreConfiguration();
     }
 }
