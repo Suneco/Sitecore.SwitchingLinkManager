@@ -59,6 +59,7 @@
         }
 
         [Fact]
+        public void ShouldGenerateLinkThroughtSwitchingProvider()
         {
             var sb = new StringBuilder();
             sb.Append("<sitecore>");
