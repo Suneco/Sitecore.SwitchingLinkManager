@@ -2,13 +2,11 @@
 {
     using System;
     using System.Configuration.Provider;
-    using System.Xml;
     using Models.Settings;
     using Sitecore.Diagnostics;
-    using Sitecore.Xml;
 
     /// <summary>
-    /// The linkpr
+    /// The linkprovider base wrapper
     /// </summary>
     /// <typeparam name="TProvider">The type of the provider.</typeparam>
     /// <typeparam name="TWrapper">The type of the wrapper.</typeparam>
@@ -48,6 +46,12 @@
         /// </value>
         public virtual string Sitename => this.sitename;
 
+        /// <summary>
+        /// Initializes the specified mapping.
+        /// </summary>
+        /// <param name="mapping">The mapping.</param>
+        /// <param name="owner">The owner.</param>
+        /// <param name="getProvider">The get provider.</param>
         public virtual void Initialize(Mapping mapping, LinkProviderWrapperBaseCollection<TProvider, TWrapper> owner, Func<string, TProvider> getProvider)
         {
             Assert.ArgumentNotNull(owner, "owner");

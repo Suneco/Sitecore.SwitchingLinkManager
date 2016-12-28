@@ -61,19 +61,6 @@
         [Fact]
         public void ShouldGenerateLinkThroughtSwitchingProvider()
         {
-            var sb = new StringBuilder();
-            sb.Append("<sitecore>");
-            sb.Append("  <linkManager defaultProvider=\"switcher\">");
-            sb.Append("    <providers>");
-            sb.Append("      <add name=\"default\" type=\"Sitecore.Links.LinkProvider, Sitecore.Kernel\" />");
-            sb.Append("      <add name=\"switcher\" type=\"Suneco.SwitchingLinkProvider.SwitchingLinkProvider, Suneco.SwitchingLinkProvider\" />");
-            sb.Append("    </providers>");
-            sb.Append("  </linkManager>");
-            sb.Append("</sitecore>");
-
-            var xmlConfig = new XmlDocument();
-            xmlConfig.LoadXml(sb.ToString());
-
             var dbItem = new DbItem("Testpage");
 
             using (var db = new Db { dbItem })
@@ -104,28 +91,31 @@
                 var linkProvider2Mock = new Mock<LinkProvider>();
 
                 linkProvider1Mock.Setup(x => x.Name).Returns("default");
-                linkProvider2Mock.Setup(x => x.Name).Returns("testlinkprovider");
+                linkProvider1Mock.Setup(x => x.GetItemUrl(item, options)).Returns("/testpage?variant=1").Verifiable();
 
-                linkProvider2Mock.Setup(x => x.GetItemUrl(item, options)).Returns("/testpage");
+                linkProvider2Mock.Setup(x => x.Name).Returns("testlinkprovider");
+                linkProvider2Mock.Setup(x => x.GetItemUrl(item, options)).Returns("/testpage?variant=2").Verifiable();
 
                 var linkProviders = new LinkProviderCollection();
                 linkProviders.Add(linkProvider1Mock.Object);
                 linkProviders.Add(linkProvider2Mock.Object);
 
                 sitecoreServiceMock.Setup(x => x.LinkProviders).Returns(linkProviders);
-                sitecoreServiceMock.Setup(x => x.GetSitecoreConfiguration()).Returns(xmlConfig);
                 sitecoreServiceMock.Setup(x => x.Sites).Returns(sites);
                 sitecoreServiceMock.Setup(x => x.GetRequestUri()).Returns(new System.Uri("http://www.test.org"));
                 sitecoreServiceMock.Setup(x => x.GetLinkProviderSettings()).Returns(settings);
 
                 var provider = new SwitchingLinkProvider(loggingServiceMock.Object, sitecoreServiceMock.Object);
-                provider.Should().NotBeNull();
-
                 provider.Initialize("test", new System.Collections.Specialized.NameValueCollection());
+
+                provider.Should().NotBeNull();
 
                 var url = provider.GetItemUrl(item, options);
 
-                url.Should().BeEquivalentTo("/testpage");
+                url.Should().BeEquivalentTo("/testpage?variant=2");
+
+                linkProvider1Mock.Verify(x => x.GetItemUrl(item, options), Times.Never);
+                linkProvider2Mock.Verify(x => x.GetItemUrl(item, options), Times.Once);
             }
         }
 
