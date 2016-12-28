@@ -2,12 +2,11 @@
 {
     using System;
     using System.Configuration.Provider;
-    using System.Xml;
+    using Models.Settings;
     using Sitecore.Diagnostics;
-    using Sitecore.Xml;
 
     /// <summary>
-    /// The linkpr
+    /// The linkprovider base wrapper
     /// </summary>
     /// <typeparam name="TProvider">The type of the provider.</typeparam>
     /// <typeparam name="TWrapper">The type of the wrapper.</typeparam>
@@ -48,23 +47,22 @@
         public virtual string Sitename => this.sitename;
 
         /// <summary>
-        /// Initializes the specified config node.
+        /// Initializes the specified mapping.
         /// </summary>
-        /// <param name="configNode">The config node.</param>
+        /// <param name="mapping">The mapping.</param>
         /// <param name="owner">The owner.</param>
-        /// <param name="getProvider">The get provider delegate.</param>
-        public virtual void Initialize(XmlNode configNode, LinkProviderWrapperBaseCollection<TProvider, TWrapper> owner, Func<string, TProvider> getProvider)
+        /// <param name="getProvider">The get provider.</param>
+        public virtual void Initialize(Mapping mapping, LinkProviderWrapperBaseCollection<TProvider, TWrapper> owner, Func<string, TProvider> getProvider)
         {
             Assert.ArgumentNotNull(owner, "owner");
 
             this.owner = owner;
             this.getProvider = getProvider;
 
-            this.providerName = XmlUtil.GetAttribute("providerName", configNode);
+            this.providerName = mapping.LinkProviderName;
 
-            // TODO: Onderstaande melding nog aanpassen.
-            Assert.IsNotNullOrEmpty(this.providerName, $"The 'providerName' attribute is empty or missing from one of the provider nodes in the domain/provider mapping of the {this.owner.OwnerTypeName} '{this.owner.Owner.Name}'");
-            this.sitename = XmlUtil.GetAttribute("sitename", configNode);
+            Assert.IsNotNullOrEmpty(this.providerName, $"The 'linkProviderName' attribute is empty or missing from one of the provider nodes in the mappings config of the switchinglinkprovider of the {this.owner.OwnerTypeName} '{this.owner.Owner.Name}'");
+            this.sitename = mapping.SiteName;
         }
     }
 }

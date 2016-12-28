@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Settings\Mapping.cs" />
     <Compile Include="Services\Interfaces\ILoggingService.cs" />
     <Compile Include="Services\SitecoreLogging.cs" />
     <Compile Include="Services\Interfaces\ISitecoreService.cs" />
@@ -77,9 +78,6 @@
     <Compile Include="LinkProviderWrapperCollection.cs" />
     <Compile Include="SwitchingLinkProvider.cs" />
     <Compile Include="TestLinkProvider1.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Config\Include\Suneco\LinkManager.config">

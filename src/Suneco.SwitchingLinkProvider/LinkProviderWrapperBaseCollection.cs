@@ -4,7 +4,9 @@
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Configuration.Provider;
+    using System.Linq;
     using System.Xml;
+    using Services.Interfaces;
     using Sitecore.Collections;
     using Sitecore.Configuration;
     using Sitecore.Diagnostics;
@@ -17,23 +19,26 @@
         private readonly ProviderBase owner;
         private readonly string ownerTypeName;
         private readonly SafeDictionary<string, TWrapper> siteMap = new SafeDictionary<string, TWrapper>();
+        private readonly ISitecoreService sitecoreService;
         private TWrapper defaultWrapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LinkProviderWrapperBaseCollection{TProvider, TWrapper}"/> class.
+        /// Initializes a new instance of the <see cref="LinkProviderWrapperBaseCollection{TProvider, TWrapper}" /> class.
         /// </summary>
         /// <param name="config">The configuration.</param>
         /// <param name="owner">The owner.</param>
         /// <param name="getProvider">The get provider.</param>
-        public LinkProviderWrapperBaseCollection(NameValueCollection config, ProviderBase owner, Func<string, TProvider> getProvider)
+        /// <param name="sitecoreService">The sitecore service.</param>
+        public LinkProviderWrapperBaseCollection(ProviderBase owner, Func<string, TProvider> getProvider, ISitecoreService sitecoreService)
         {
-            Assert.ArgumentNotNull(config, "config");
             Assert.ArgumentNotNull(owner, "owner");
             Assert.ArgumentNotNull(getProvider, "getProvider");
+            Assert.ArgumentNotNull(sitecoreService, "sitecoreService");
 
             this.owner = owner;
             this.ownerTypeName = this.owner.GetType().FullName;
-            this.Initialize(config, getProvider);
+            this.sitecoreService = sitecoreService;
+            this.Initialize(getProvider);
         }
 
         /// <summary>
@@ -92,41 +97,21 @@
         }
 
         /// <summary>
-        /// Gets the provider nodes from config.
-        /// </summary>
-        /// <param name="config">The config.</param>
-        /// <returns>The provider nodes from the config</returns>
-        private List<XmlNode> GetProviderNodesFromConfig(NameValueCollection config)
-        {
-            string item = config["mappings"];
-
-            Assert.IsNotNullOrEmpty(item, $"The configuration for {this.ownerTypeName} must have a non-empty 'mappings' attribute pointing to the domain/provider mappings. Provider name: {this.owner.Name}");
-
-            var configNode = Factory.GetConfigNode(item);
-            Assert.IsNotNull(configNode, $"Could not find the configuration node pointed to by the 'mappings' attribute of the {this.ownerTypeName} configuration. Provider: {this.owner.Name}, mappings path: {item}");
-
-            var childNodes = XmlUtil.GetChildNodes("provider", configNode);
-
-            var flag = childNodes != null && childNodes.Count > 0;
-            Assert.IsTrue(flag, $"Could not find any 'provider' nodes below the configuration node pointed to by the 'mappings' attribute of the {this.ownerTypeName} configuration. Provider: {this.owner.Name}, mappings path: {item}");
-
-            return childNodes;
-        }
-
-        /// <summary>
         /// Initializes the wrappers.
         /// </summary>
-        /// <param name="config">The config.</param>
         /// <param name="getProvider">The get provider delegate.</param>
-        private void Initialize(NameValueCollection config, Func<string, TProvider> getProvider)
+        private void Initialize(Func<string, TProvider> getProvider)
         {
-            List<XmlNode> providerNodesFromConfig = this.GetProviderNodesFromConfig(config);
+            var settings = this.sitecoreService.GetLinkProviderSettings();
 
-            foreach (XmlNode xmlNodes in providerNodesFromConfig)
+            if (settings.Mappings != null && settings.Mappings.Any())
             {
-                var tWrapper = Activator.CreateInstance<TWrapper>();
-                tWrapper.Initialize(xmlNodes, this, getProvider);
-                this.Add(tWrapper);
+                foreach (var mapping in settings.Mappings)
+                {
+                    var tWrapper = Activator.CreateInstance<TWrapper>();
+                    tWrapper.Initialize(mapping, this, getProvider);
+                    this.Add(tWrapper);
+                }
             }
 
             this.BuildSiteMap();

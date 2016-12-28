@@ -1,4 +1,4 @@
-﻿namespace Suneco.SwitchingLinkManager.Models.Settings
+﻿namespace Suneco.SwitchingLinkProvider.Models.Settings
 {
     using System.Xml;
 
@@ -10,10 +10,20 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingBase"/> class.
         /// </summary>
+        public SettingBase()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SettingBase"/> class.
+        /// </summary>
         /// <param name="configuration">The configuration.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "This is allowed")]
         public SettingBase(XmlDocument configuration)
         {
+#pragma warning disable S1699 // Constructors should only call non-overridable methods
             this.LoadConfiguration(configuration);
+#pragma warning restore S1699 // Constructors should only call non-overridable methods
         }
 
         /// <summary>
