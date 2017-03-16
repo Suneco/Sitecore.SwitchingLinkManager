@@ -5,7 +5,11 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Web;
+    using Microsoft.Extensions.DependencyInjection;
+    using Sitecore.Abstractions;
+    using Sitecore.Configuration;
     using Sitecore.Data.Items;
+    using Sitecore.DependencyInjection;
     using Sitecore.Diagnostics;
     using Sitecore.Links;
     using Sitecore.StringExtensions;
@@ -13,21 +17,35 @@
     using Suneco.SwitchingLinkProvider.Services;
     using Suneco.SwitchingLinkProvider.Services.Interfaces;
 
+    /// <summary>
+    /// Switching link provider
+    /// </summary>
+    /// <seealso cref="Sitecore.Links.LinkProvider" />
     public class SwitchingLinkProvider : LinkProvider
     {
+        private readonly Lazy<BaseLinkManager> instance;
+        private readonly Lazy<ProviderHelper<LinkProvider, LinkProviderCollection>> providerHelper;
         private readonly ILoggingService loggingService;
         private readonly ISitecoreService sitecoreService;
         private LinkProviderWrapperCollection wrappers;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SwitchingLinkProvider"/> class.
+        /// Initializes a new instance of the <see cref="SwitchingLinkProvider" /> class.
         /// </summary>
         /// <param name="loggingService">The logging service.</param>
         /// <param name="sitecoreService">The sc service.</param>
-        public SwitchingLinkProvider(ILoggingService loggingService, ISitecoreService sitecoreService)
+        /// <param name="instance">The instance.</param>
+        /// <param name="providerHelper">The provider helper.</param>
+        public SwitchingLinkProvider(
+            ILoggingService loggingService,
+            ISitecoreService sitecoreService,
+            Lazy<BaseLinkManager> instance,
+            Lazy<ProviderHelper<LinkProvider, LinkProviderCollection>> providerHelper)
         {
             this.loggingService = loggingService;
             this.sitecoreService = sitecoreService;
+            this.instance = instance;
+            this.providerHelper = providerHelper;
         }
 
         /// <summary>
@@ -37,6 +55,12 @@
         {
             this.loggingService = new SitecoreLogging();
             this.sitecoreService = new SitecoreService();
+
+            this.instance = new Lazy<BaseLinkManager>(() =>
+                ServiceLocator.ServiceProvider.GetRequiredService<BaseLinkManager>());
+
+            this.providerHelper = new Lazy<ProviderHelper<LinkProvider, LinkProviderCollection>>(() =>
+                ServiceLocator.ServiceProvider.GetRequiredService<ProviderHelper<LinkProvider, LinkProviderCollection>>());
         }
 
         /// <summary>
@@ -86,6 +110,18 @@
         /// The location within the URL where the language should be added.
         /// </value>
         public override LanguageLocation LanguageLocation => this.ContextProvider.LanguageLocation;
+
+        /// <summary>
+        /// Gets the provider.
+        /// </summary>
+        /// <value>The provider.</value>
+        public LinkProvider Provider => this.providerHelper.Value.Provider;
+
+        /// <summary>
+        /// Gets the providers.
+        /// </summary>
+        /// <value>The provider.</value>
+        public LinkProviderCollection Providers => this.providerHelper.Value.Providers;
 
         /// <summary>
         /// Gets a value indicating whether to render lowercase URLs.
@@ -152,19 +188,6 @@
 
                 return null;
             }
-        }
-
-        /// <summary>
-        /// Expands all dynamic links embedded in a text.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <returns>
-        /// The expanded dynamic links.
-        /// </returns>
-        [Obsolete("This method is never called by LinkProvider. Implement ExpandDynamicLinks(string text, bool resolveSites) instead.")]
-        public override string ExpandDynamicLinks(string text)
-        {
-            return this.ExpandDynamicLinks(text, false);
         }
 
         /// <summary>
@@ -261,9 +284,9 @@
             SwitchingLinkProvider switchingMembershipProvider = this;
 
             linkProviderWrapperList.wrappers = new LinkProviderWrapperCollection(
-                switchingMembershipProvider,
-                providerName => this.sitecoreService.LinkProviders[providerName],
-                this.sitecoreService);
+                owner: switchingMembershipProvider,
+                getProvider: providerName => this.Providers[providerName],
+                sitecoreService: this.sitecoreService);
         }
 
         /// <summary>

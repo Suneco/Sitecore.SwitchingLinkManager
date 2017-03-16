@@ -2,15 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.Specialized;
     using System.Configuration.Provider;
     using System.Linq;
-    using System.Xml;
-    using Services.Interfaces;
     using Sitecore.Collections;
-    using Sitecore.Configuration;
     using Sitecore.Diagnostics;
-    using Sitecore.Xml;
+    using Suneco.SwitchingLinkProvider.Services.Interfaces;
 
     public class LinkProviderWrapperBaseCollection<TProvider, TWrapper> : List<TWrapper>
         where TProvider : ProviderBase
@@ -108,9 +104,9 @@
             {
                 foreach (var mapping in settings.Mappings)
                 {
-                    var tWrapper = Activator.CreateInstance<TWrapper>();
-                    tWrapper.Initialize(mapping, this, getProvider);
-                    this.Add(tWrapper);
+                    var wrapper = Activator.CreateInstance<TWrapper>();
+                    wrapper.Initialize(mapping, this, getProvider);
+                    this.Add(wrapper);
                 }
             }
 

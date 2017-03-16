@@ -1,10 +1,10 @@
 ﻿namespace Suneco.SwitchingLinkProvider.Test.Models.Settings
 {
+    using FluentAssertions;
+    using Suneco.SwitchingLinkProvider.Models.Settings;
     using System.Linq;
     using System.Text;
     using System.Xml;
-    using FluentAssertions;
-    using Suneco.SwitchingLinkProvider.Models.Settings;
     using Xunit;
 
     /// <summary>

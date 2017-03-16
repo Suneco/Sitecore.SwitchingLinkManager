@@ -2,8 +2,8 @@
 {
     using System;
     using System.Configuration.Provider;
-    using Models.Settings;
     using Sitecore.Diagnostics;
+    using Suneco.SwitchingLinkProvider.Models.Settings;
 
     /// <summary>
     /// The linkprovider base wrapper

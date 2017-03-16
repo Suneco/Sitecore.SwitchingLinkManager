@@ -1,7 +1,6 @@
 ﻿namespace Suneco.SwitchingLinkProvider
 {
     using System;
-    using System.Collections.Specialized;
     using System.Configuration.Provider;
     using Services.Interfaces;
     using Sitecore.Links;

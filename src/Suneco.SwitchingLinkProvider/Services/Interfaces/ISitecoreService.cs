@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Xml;
-    using Models.Settings;
     using Sitecore.Links;
     using Sitecore.Web;
+    using Suneco.SwitchingLinkProvider.Models.Settings;
 
     /// <summary>
     /// Interface that provides access to sitecore methods
